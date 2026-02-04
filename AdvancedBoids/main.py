@@ -35,6 +35,10 @@ def main():
                     engine.mode = event.text
             
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == interface.start_btn:
+                    engine.is_running = True
+                if event.ui_element == interface.stop_btn:
+                    engine.is_running = False
                 if event.ui_element == interface.debug_btn:
                     engine.debug_mode = not engine.debug_mode
                 if event.ui_element == interface.trails_btn:
@@ -51,8 +55,11 @@ def main():
         engine.weights["alignment"] = interface.ali_slider.get_current_value()
         engine.weights["cohesion"] = interface.coh_slider.get_current_value()
         
-        engine.update()
+        if engine.is_running:
+            engine.update()
+            
         interface.update_status(len(engine.boids))
+
         
         # Render
         screen.fill(config.COLOR_BACKGROUND)

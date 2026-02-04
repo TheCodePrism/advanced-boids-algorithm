@@ -9,7 +9,7 @@ class Interface:
         self.setup_ui()
 
     def setup_ui(self):
-        panel_rect = pygame.Rect((10, 10), (220, 360))
+        panel_rect = pygame.Rect((10, 10), (220, 400))
         self.panel = pygame_gui.elements.UIPanel(relative_rect=panel_rect, manager=self.manager)
 
         y = 5
@@ -52,6 +52,19 @@ class Interface:
             manager=self.manager, container=self.panel
         )
 
+        y += 35
+        self.start_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((5, y), (100, 30)),
+            text="Start",
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Resume the simulation physics."
+        )
+        self.stop_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((110, y), (95, 30)),
+            text="Stop",
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Pause the simulation physics."
+        )
 
         y += 35
         self.debug_btn = pygame_gui.elements.UIButton(
@@ -80,6 +93,7 @@ class Interface:
             manager=self.manager, container=self.panel,
             tool_tip_text="Show information about the simulation."
         )
+
 
         
         y += 40
