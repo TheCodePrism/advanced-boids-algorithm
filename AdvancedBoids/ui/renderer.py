@@ -6,10 +6,28 @@ class Renderer:
     def __init__(self, screen):
         self.screen = screen
 
-    def draw_boid(self, boid, color, debug=False):
+    def draw_boid(self, boid, color, show_trails=True, debug=False):
         # Draw trail
-        if len(boid.trail) > 1:
-            pygame.draw.lines(self.screen, config.COLOR_TRAIL_BOID if color == config.COLOR_BOID else config.COLOR_TRAIL_PREDATOR, False, [p.astype(int) for p in boid.trail], 1)
+        if show_trails and len(boid.trail) > 1:
+            trail_color = config.COLOR_TRAIL_BOID if color == config.COLOR_BOID else config.COLOR_TRAIL_PREDATOR
+            
+            # Draw trail segments, breaking them if they jump across the screen (wrapping)
+            segment = [boid.trail[0].astype(int)]
+            for i in range(1, len(boid.trail)):
+                prev = boid.trail[i-1]
+                curr = boid.trail[i]
+                
+                # If distance is too large, it's a wrap-around
+                if np.linalg.norm(curr - prev) > 100:
+                    if len(segment) > 1:
+                        pygame.draw.lines(self.screen, trail_color, False, segment, 1)
+                    segment = [curr.astype(int)]
+                else:
+                    segment.append(curr.astype(int))
+            
+            if len(segment) > 1:
+                pygame.draw.lines(self.screen, trail_color, False, segment, 1)
+
 
         # Calculate triangle points based on velocity
         pos = boid.position.astype(int)

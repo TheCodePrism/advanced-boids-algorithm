@@ -37,6 +37,8 @@ def main():
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == interface.debug_btn:
                     engine.debug_mode = not engine.debug_mode
+                if event.ui_element == interface.trails_btn:
+                    engine.show_trails = not engine.show_trails
                 if event.ui_element == interface.reset_btn:
                     engine.reset()
                 if event.ui_element == interface.about_btn:
@@ -66,12 +68,13 @@ def main():
                 sep, ali, coh = boid.flock(neighbors)
                 renderer.draw_debug_vectors(boid, sep, ali, coh)
             
-            renderer.draw_boid(boid, config.COLOR_BOID)
+            renderer.draw_boid(boid, config.COLOR_BOID, show_trails=engine.show_trails)
 
             
         if engine.mode == "Predator-Prey":
             for predator in engine.predators:
-                renderer.draw_boid(predator, config.COLOR_PREDATOR)
+                renderer.draw_boid(predator, config.COLOR_PREDATOR, show_trails=engine.show_trails)
+
                 
         manager.update(time_delta)
         manager.draw_ui(screen)

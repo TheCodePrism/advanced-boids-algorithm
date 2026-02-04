@@ -52,25 +52,35 @@ class Interface:
             manager=self.manager, container=self.panel
         )
 
+
         y += 35
         self.debug_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((5, y), (100, 30)),
             text="Debug",
-            manager=self.manager, container=self.panel
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Toggle force vector visualization."
         )
-        self.reset_btn = pygame_gui.elements.UIButton(
+        self.trails_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((110, y), (95, 30)),
-            text="Reset",
-            manager=self.manager, container=self.panel
+            text="Trails",
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Toggle boid motion trails."
         )
-
-
+        
         y += 35
-        self.about_btn = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((5, y), (200, 30)),
-            text="About Simulation",
-            manager=self.manager, container=self.panel
+        self.reset_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((5, y), (100, 30)),
+            text="Reset",
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Reset simulation state."
         )
+        self.about_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((110, y), (95, 30)),
+            text="About",
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Show information about the simulation."
+        )
+
         
         y += 40
         self.status_label = pygame_gui.elements.UILabel(
