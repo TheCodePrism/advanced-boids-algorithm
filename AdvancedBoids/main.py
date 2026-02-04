@@ -47,6 +47,8 @@ def main():
                     engine.reset()
                 if event.ui_element == interface.about_btn:
                     interface.show_about_window()
+                if event.ui_element == interface.toggle_btn:
+                    interface.toggle_sidebar()
             
             manager.process_events(event)
             
@@ -55,8 +57,12 @@ def main():
         engine.weights["alignment"] = interface.ali_slider.get_current_value()
         engine.weights["cohesion"] = interface.coh_slider.get_current_value()
         
+        # Update animations and simulation
+        interface.update_animation(time_delta)
+        
         if engine.is_running:
             engine.update()
+
             
         interface.update_status(len(engine.boids))
 

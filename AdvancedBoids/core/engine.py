@@ -17,7 +17,8 @@ class Engine:
         self.mode = "Standard Flocking"
         self.debug_mode = False
         self.show_trails = True
-        self.is_running = True
+        self.is_running = False
+
         
         self.weights = {
 
