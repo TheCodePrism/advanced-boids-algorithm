@@ -29,8 +29,7 @@ class Interface:
             relative_rect=pygame.Rect((5, y), (200, 20)),
             start_value=config.DEFAULT_WEIGHT_SEPARATION,
             value_range=(0, 5),
-            manager=self.manager, container=self.panel,
-            tool_tip_text="Separation: Keeps boids from crowding each other by applying a repulsive force from nearby neighbors."
+            manager=self.manager, container=self.panel
         )
 
         y += 30
@@ -40,8 +39,7 @@ class Interface:
             relative_rect=pygame.Rect((5, y), (200, 20)),
             start_value=config.DEFAULT_WEIGHT_ALIGNMENT,
             value_range=(0, 5),
-            manager=self.manager, container=self.panel,
-            tool_tip_text="Alignment: Steers boids toward the average heading (velocity) of their neighbors, creating synchronized motion."
+            manager=self.manager, container=self.panel
         )
 
         y += 30
@@ -51,23 +49,21 @@ class Interface:
             relative_rect=pygame.Rect((5, y), (200, 20)),
             start_value=config.DEFAULT_WEIGHT_COHESION,
             value_range=(0, 5),
-            manager=self.manager, container=self.panel,
-            tool_tip_text="Cohesion: Steers boids toward the average position (center of mass) of their neighbors to keep the flock together."
+            manager=self.manager, container=self.panel
         )
 
         y += 35
         self.debug_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((5, y), (100, 30)),
             text="Debug",
-            manager=self.manager, container=self.panel,
-            tool_tip_text="Toggle visualization of force vectors (Separation: Red, Alignment: Green, Cohesion: Blue)."
+            manager=self.manager, container=self.panel
         )
         self.reset_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((110, y), (95, 30)),
             text="Reset",
-            manager=self.manager, container=self.panel,
-            tool_tip_text="Respawn boids and predators at random locations and clear obstacles."
+            manager=self.manager, container=self.panel
         )
+
 
         y += 35
         self.about_btn = pygame_gui.elements.UIButton(
