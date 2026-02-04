@@ -29,7 +29,8 @@ class Interface:
             relative_rect=pygame.Rect((5, y), (200, 20)),
             start_value=config.DEFAULT_WEIGHT_SEPARATION,
             value_range=(0, 5),
-            manager=self.manager, container=self.panel
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Separation: Keeps boids from crowding each other by applying a repulsive force from nearby neighbors."
         )
 
         y += 30
@@ -39,7 +40,8 @@ class Interface:
             relative_rect=pygame.Rect((5, y), (200, 20)),
             start_value=config.DEFAULT_WEIGHT_ALIGNMENT,
             value_range=(0, 5),
-            manager=self.manager, container=self.panel
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Alignment: Steers boids toward the average heading (velocity) of their neighbors, creating synchronized motion."
         )
 
         y += 30
@@ -49,18 +51,28 @@ class Interface:
             relative_rect=pygame.Rect((5, y), (200, 20)),
             start_value=config.DEFAULT_WEIGHT_COHESION,
             value_range=(0, 5),
-            manager=self.manager, container=self.panel
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Cohesion: Steers boids toward the average position (center of mass) of their neighbors to keep the flock together."
         )
 
         y += 35
         self.debug_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((5, y), (100, 30)),
             text="Debug",
-            manager=self.manager, container=self.panel
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Toggle visualization of force vectors (Separation: Red, Alignment: Green, Cohesion: Blue)."
         )
         self.reset_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((110, y), (95, 30)),
             text="Reset",
+            manager=self.manager, container=self.panel,
+            tool_tip_text="Respawn boids and predators at random locations and clear obstacles."
+        )
+
+        y += 35
+        self.about_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((5, y), (200, 30)),
+            text="About Simulation",
             manager=self.manager, container=self.panel
         )
         
@@ -71,5 +83,29 @@ class Interface:
             manager=self.manager, container=self.panel
         )
 
+    def show_about_window(self):
+        about_text = (
+            "<b>Advanced Boids Research Simulation</b><br><br>"
+            "This application is designed for experimentation with emergent collective behavior using Craig Reynolds' Boids algorithm.<br><br>"
+            "<b>The Three Core Rules:</b><br>"
+            "1. <b>Separation:</b> Steer to avoid crowding local flockmates.<br>"
+            "2. <b>Alignment:</b> Steer towards the average heading of local flockmates.<br>"
+            "3. <b>Cohesion:</b> Steer to move towards the average position of local flockmates.<br><br>"
+            "<b>Advanced Features:</b><br>"
+            "- <b>Spatial Partitioning:</b> Uses cKDTree for efficient O(N log N) computation.<br>"
+            "- <b>Predator-Prey Logic:</b> Simulates evasion tactics against larger predators.<br>"
+            "- <b>Obstacle Navigation:</b> Evaluates pathfinding in complex environments.<br><br>"
+            "<b>Uses:</b><br>"
+            "- Researching swarm intelligence and decentralized systems.<br>"
+            "- Educational tool for understanding vector mathematics and physics simulations."
+        )
+        pygame_gui.windows.UIMessageWindow(
+            rect=pygame.Rect((self.width // 2 - 250, self.height // 2 - 200), (500, 400)),
+            html_message=about_text,
+            manager=self.manager,
+            window_title="About the Simulation"
+        )
+
     def update_status(self, boid_count):
+
         self.status_label.set_text(f"Boids: {boid_count}")

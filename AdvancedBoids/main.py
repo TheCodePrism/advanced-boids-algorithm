@@ -39,6 +39,8 @@ def main():
                     engine.debug_mode = not engine.debug_mode
                 if event.ui_element == interface.reset_btn:
                     engine.reset()
+                if event.ui_element == interface.about_btn:
+                    interface.show_about_window()
             
             manager.process_events(event)
             
@@ -57,7 +59,15 @@ def main():
             renderer.draw_obstacles(engine.obstacles)
             
         for boid in engine.boids:
+            if engine.debug_mode:
+                # Re-calculate forces for debug drawing (simplified)
+                neighbor_indices = engine.spatial_manager.query_radius(boid.position, boid.perception)
+                neighbors = [engine.boids[idx] for idx in neighbor_indices if engine.boids[idx] != boid]
+                sep, ali, coh = boid.flock(neighbors)
+                renderer.draw_debug_vectors(boid, sep, ali, coh)
+            
             renderer.draw_boid(boid, config.COLOR_BOID)
+
             
         if engine.mode == "Predator-Prey":
             for predator in engine.predators:
